@@ -1,45 +1,55 @@
-# K-means Clustering on Breast Cancer Data (Portfolio Sample)
+# K-means on the Wisconsin Diagnostic Breast Cancer Dataset
 
-This repository demonstrates **unsupervised learning** with **K-means** on the Breast Cancer dataset from `scikit-learn`.
-It mirrors the kind of data-quality thinking and evaluation used in clinical research—mapping clusters to ground truth,
-reporting metrics, and producing clear, reproducible figures.
+Explore clustering in the 569-observation, 30-feature dataset bundled with scikit-learn.
+The notebook compares a NumPy implementation of Lloyd's algorithm with scikit-learn KMeans.
 
-## What this shows
-- End-to-end **reproducible analysis**: data loading, scaling, clustering, evaluation, and visualization
-- **Metrics** for unsupervised evaluation: silhouette score; label mapping for precision/recall/accuracy (for interpretability)
-- Clean, publication-style plots (PCA projection of clusters; K vs. silhouette)
-- A simple **from-scratch K-means** implementation (for transparency), alongside a `scikit-learn` reference
+## Analysis
 
-## Repo structure
-```
-.
-├── notebooks
-│   └── kmeans_breast_cancer.ipynb     # Reproducible notebook with code + plots
-├── src
-│   └── kmeans_scratch.py              # Minimal from-scratch K-means (NumPy)
-├── README.md
-├── requirements.txt
-├── LICENSE
-└── .gitignore
-```
+- Standardize the feature measurements, then cluster without diagnosis labels.
+- Run one random initialization in the scratch implementation and 20 k-means++ starts in the reference.
+- Compare inertia, silhouette score and adjusted Rand agreement with recorded diagnoses.
+- Visualize clusters in a two-component PCA projection.
+- Explore silhouette scores for cluster counts from two through seven.
 
-## Quickstart
+Scaling and clustering use the full dataset. Diagnosis labels are used afterward for descriptive
+comparison, including a best two-cluster label mapping. **These are in-sample exploratory results**,
+not held-out diagnostic accuracy or evidence of clinical usefulness. PCA is used only for visualization.
+The different initialization budgets also prevent treating this as an equal-budget algorithm benchmark.
+
+## Implementation
+
+The scratch function keeps an empty cluster's previous centroid and always recomputes assignments
+against the returned centroids. It does not guarantee a global optimum or that every cluster is occupied.
+
+| Path | Purpose |
+|---|---|
+| [notebooks/kmeans_breast_cancer.ipynb](notebooks/kmeans_breast_cancer.ipynb) | Executed clustering comparison and plots |
+| [src/kmeans_scratch.py](src/kmeans_scratch.py) | NumPy Lloyd iteration |
+| [tests/test_kmeans.py](tests/test_kmeans.py) | Final-assignment, empty-cluster and invalid-input checks |
+
+Dataset documentation: [scikit-learn breast cancer dataset](https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset).
+
+## Run locally
+
+Use Python 3.12 and a separate environment for this project. From the repository folder:
+
 ```bash
-# 1) Create a virtual environment (optional but recommended)
 python -m venv .venv
-# Windows: .venv\Scripts\activate
-# Linux/Mac: source .venv/bin/activate
+```
 
-# 2) Install dependencies
-pip install -r requirements.txt
+Activate with `.venv\Scripts\activate` in Windows Command Prompt or
+`source .venv/bin/activate` on Linux/macOS, then run:
 
-# 3) Run the notebook
+```bash
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
 jupyter notebook notebooks/kmeans_breast_cancer.ipynb
 ```
 
-## Notes
-- This project uses **public, non-sensitive** data.
-- It focuses on **clarity, evaluation, and reproducibility**, which are critical when preparing real-world research datasets.
+The notebook finds the repository from either its root folder or `notebooks/`.
+The saved outputs come from CPU execution with the included data; see
+[validation](docs/VALIDATION.md) for the checks and limits.
 
 ## License
-MIT — see `LICENSE`.
+
+MIT — see [LICENSE](LICENSE).
