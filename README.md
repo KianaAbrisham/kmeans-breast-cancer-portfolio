@@ -50,6 +50,10 @@ The notebook finds the repository from either its root folder or `notebooks/`.
 The saved outputs come from CPU execution with the included data; see
 [validation](docs/VALIDATION.md) for the checks and limits.
 
+## Implementation context
+
+This is an educational Lloyd-algorithm exercise. AI coding assistance was used to revise the NumPy implementation, add regression checks, execute the notebook, and document the comparison. The source makes the centroid update, empty-cluster behavior, and final assignment step explicit so they can be compared with scikit-learn's implementation.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
