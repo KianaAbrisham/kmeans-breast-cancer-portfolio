@@ -1,5 +1,7 @@
 # K-means on the Wisconsin Diagnostic Breast Cancer Dataset
 
+[![Checks](https://github.com/KianaAbrisham/kmeans-breast-cancer-portfolio/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/KianaAbrisham/kmeans-breast-cancer-portfolio/actions/workflows/checks.yml)
+
 Explore clustering in the 569-observation, 30-feature dataset bundled with scikit-learn.
 The notebook compares a NumPy implementation of Lloyd's algorithm with scikit-learn KMeans.
 
@@ -50,9 +52,7 @@ The notebook finds the repository from either its root folder or `notebooks/`.
 The saved outputs come from CPU execution with the included data; see
 [validation](docs/VALIDATION.md) for the checks and limits.
 
-## Implementation context
-
-This is an educational Lloyd-algorithm exercise. AI coding assistance was used to revise the NumPy implementation, add regression checks, execute the notebook, and document the comparison. The source makes the centroid update, empty-cluster behavior, and final assignment step explicit so they can be compared with scikit-learn's implementation.
+[Development notes](https://github.com/KianaAbrisham/KianaAbrisham/blob/main/docs/DEVELOPMENT.md)
 
 ## License
 
